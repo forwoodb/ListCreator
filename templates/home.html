@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="container">
+    <form action="add_list/" method="post" class="uniForm">
+        {% csrf_token %}
+        {{form.list_name}}
+        <input type="submit" value="Add List" class="btn btn-success mb-3">
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>List Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in lists %}
+            <tr>
+                <td><a href="{% url 'list_page' n.id %}" class="text-decoration-none">{{n.list_name}}</a></td>
+                <td>
+                    <form action="del_list/{{n.id}}/" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </td>
+                <td>
+                    <form action="edit_list/{{n.id}}/" method="get">
+                        {% csrf_token %}
+                        <input type="submit" value="Edit" class="btn btn-primary">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="container">
+    <p>You are not logged in.</p>
+    <p><a href="{% url 'signup' %}">Sign Up</a></p>
+    <p><a href="{% url 'login' %}">Log In</a></p>
+    <form action="{% url 'demo_login' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Demo Login" class="btn btn-primary">
+    </form>
+</div>
+
+{% endif %}
+{% endblock content %}

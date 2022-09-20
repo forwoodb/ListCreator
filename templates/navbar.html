@@ -1,0 +1,8 @@
+<nav class="navbar navbar-light bg-light mb-3">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'index' %}">List Creator</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Log Out</a>
+        {% endif %}
+    </div>
+</nav>

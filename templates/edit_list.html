@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <form action="/update_list/{{list_name.id}}/" method="post">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Update" class="btn btn-success">
+    </form>
+</div>
+{% endblock content %}
